@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi Página Web – Semana 6</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+
+  <style>
+    /* ── Variables y reset ─────────────────────────── */
+    :root {
+      --verde:        #2e7d32;
+      --verde-claro:  #43a047;
+      --acento:       #ff6f00;
+      --texto:        #1a1a1a;
+      --fondo:        #f5f5f0;
+      --blanco:       #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background-color: var(--fondo);
+      color: var(--texto);
+      line-height: 1.7;
+    }
+
+    /* ══ NAV personalizado (reemplazado por Bootstrap Navbar) ══ */
+    .navbar-brand { font-size: 1.25rem; font-weight: bold; }
+    .navbar { border-bottom: 4px solid var(--acento); }
+    .navbar-nav .nav-link { font-family: 'Trebuchet MS', sans-serif; font-size: .95rem; letter-spacing: .04em; }
+    .navbar-nav .nav-link:hover { background: var(--acento); border-radius: 4px; }
+
+    /* ══ HEADER ══ */
+    header {
+      background: linear-gradient(135deg, var(--verde) 0%, var(--verde-claro) 100%);
+      color: var(--blanco);
+      text-align: center;
+      width: 100%;
+      padding: 4rem 2rem 3rem;
+      border-bottom: 6px solid var(--acento);
+    }
+    header h1 { font-size: 2.6rem; margin-bottom: .5rem; }
+    header p   { font-size: 1.1rem; opacity: .9; }
+
+    /* ══ LAYOUT PRINCIPAL ══ */
+    .wrapper {
+      display: flex;
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+    }
+    main  { flex: 2; min-width: 0; }
+    aside { flex: 1; display: flex; flex-direction: column; gap: 1.5rem; align-self: flex-start; position: sticky; top: 70px; }
+
+    section {
+      margin-bottom: 2.5rem;
+      padding: 1.5rem;
+      background: var(--blanco);
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: var(--verde);
+      border-left: 5px solid var(--acento);
+      padding-left: .75rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ══ ASIDE CARDS ══ */
+    .aside-card {
+      background: var(--blanco);
+      border: 2px solid var(--verde-claro);
+      border-radius: 8px;
+      padding: 1.25rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+    .aside-card h3 { color: var(--verde); font-size: 1rem; margin-bottom: .75rem; border-bottom: 2px solid var(--acento); padding-bottom: .4rem; }
+    .aside-card ul { list-style: none; padding: 0; }
+    .aside-card ul li { padding: .4rem 0; border-bottom: 1px dashed #ccc; font-size: .92rem; color: #444; }
+    .aside-card ul li:last-child { border-bottom: none; }
+    .aside-badge { display: inline-block; background: var(--verde); color: #fff; border-radius: 999px; padding: .15rem .65rem; font-size: .78rem; margin-right: .4rem; }
+
+    /* ══ SELECTORES ══ */
+    p.destacado {
+      background: #fffde7;
+      border-left: 4px solid var(--acento);
+      padding: .75rem 1rem;
+      border-radius: 4px;
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    .cita { color: #555; font-size: .95rem; }
+    .tarjeta { background: var(--fondo); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 1rem; border: 1px solid #ddd; box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+    .tarjeta p { margin-top: .5rem; font-size: .97rem; }
+    #parrafo1, .resumen { background: #e8f5e9; border: 1px solid #a5d6a7; border-radius: 6px; padding: 1rem 1.25rem; margin-bottom: 1rem; font-size: 1rem; }
+    #parrafo1 { color: var(--verde); font-weight: bold; }
+
+    /* ══ LISTA TECNOLOGÍAS ══ */
+    .lista-tecnologias { margin-top: .5rem; }
+    .lista-tecnologias ul { list-style: none; padding: 0; }
+    .lista-tecnologias ul li { padding: .55rem .9rem; border-bottom: 1px solid #ddd; display: flex; align-items: center; gap: .6rem; }
+    .lista-tecnologias ul li span { display: inline-block; background: var(--verde); color: #fff; border-radius: 999px; padding: .15rem .65rem; font-size: .8rem; font-family: monospace; }
+    .lista-tecnologias ul li:hover { background: #e8f5e9; transition: background .2s; }
+
+    /* ══ GALERÍA ══ */
+    .galeria { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .galeria .item { flex: 1 1 120px; background: var(--verde-claro); color: #fff; border-radius: 8px; padding: 1.5rem; text-align: center; font-size: 1.5rem; border: 2px solid transparent; transition: transform .25s, box-shadow .25s; }
+    .galeria .item:hover { transform: translateY(-6px); box-shadow: 0 8px 20px rgba(0,0,0,.18); background: var(--acento); }
+    .galeria .item p { font-size: .85rem; margin-top: .4rem; }
+
+    /* ══ FOOTER ══ */
+    footer { background: var(--verde); color: var(--blanco); text-align: center; width: 100%; padding: 1.5rem 2rem; margin-top: 3rem; border-top: 4px solid var(--acento); font-size: .875rem; }
+    footer a { color: var(--acento); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    .badge-caja { display: inline-block; background: var(--acento); color: #fff; font-size: .72rem; font-family: monospace; padding: .1rem .5rem; border-radius: 4px; margin-left: .5rem; vertical-align: middle; }
+
+    /* ══ BOOTSTRAP PROGRESS BARS personalizadas ══ */
+    .progress-bar.bg-verde { background-color: var(--verde) !important; }
+    .progress-bar.bg-acento { background-color: var(--acento) !important; }
+
+    /* ══ TOAST ══ */
+    .toast-container { z-index: 9999; }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       COMPONENTE BOOTSTRAP 1: ALERT
+       Aviso sobre el framework usado
+  ══════════════════════════════════════ -->
+  <div class="alert alert-warning alert-dismissible fade show mb-0 text-center fw-semibold" role="alert" style="border-radius:0; border:none; border-bottom: 2px solid var(--acento);">
+    <i class="bi bi-bootstrap-fill me-2"></i>
+    <strong>Semana 6:</strong> Esta página usa <strong>Bootstrap 5 mediante componentes</strong> — Navbar, Alert, Progress Bars, Accordion, Toast, Modal y Badges.
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       COMPONENTE BOOTSTRAP 2: NAVBAR
+       Reemplaza el <nav> manual de semana 5
+  ══════════════════════════════════════ -->
+  <nav class="navbar navbar-expand-lg sticky-top shadow" style="background-color: var(--verde);">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand text-white" href="#inicio">🌿 MiWeb</a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <i class="bi bi-list text-white fs-4"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link text-white" href="#inicio">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#sobre-mi">Sobre mí</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#tecnologias">Tecnologías</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#proyectos">Proyectos</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HEADER (igual que semana 5) -->
+  <header id="inicio">
+    <h1>¡Bienvenido a mi Página Web!</h1>
+    <p>Proyecto de aula · HTML &amp; CSS · Semana 6 — Frameworks y Librerías (Bootstrap)</p>
+  </header>
+
+  <!-- LAYOUT: main + aside -->
+  <div class="wrapper">
+
+    <main>
+
+      <!-- SOBRE MÍ -->
+      <section id="sobre-mi">
+        <h2>Sobre mí <span class="badge-caja">padding · margin · border</span></h2>
+        <p class="destacado">
+          Soy estudiante de desarrollo web y estoy aprendiendo a construir páginas
+          modernas con HTML y CSS. ¡Cada semana aprendo algo nuevo!
+        </p>
+        <p id="parrafo1">
+          Este párrafo usa el selector <code>#parrafo1</code>, agrupado con
+          <code>.resumen</code> para compartir fondo verde claro.
+        </p>
+        <p class="resumen">
+          Este párrafo usa la clase <code>.resumen</code>. Gracias a la
+          <strong>agrupación de selectores</strong>, ambos comparten el mismo estilo base.
+        </p>
+
+        <!-- ══════════════════════════════════════
+             COMPONENTE BOOTSTRAP 3: BADGES
+             Tecnologías aprendidas
+        ══════════════════════════════════════ -->
+        <div class="mt-3 d-flex flex-wrap gap-2">
+          <span class="badge rounded-pill" style="background:var(--verde);">HTML5</span>
+          <span class="badge rounded-pill" style="background:#1565c0;">CSS3</span>
+          <span class="badge rounded-pill" style="background:#f9a825; color:#000;">JavaScript</span>
+          <span class="badge rounded-pill" style="background:var(--acento);">Bootstrap</span>
+          <span class="badge rounded-pill bg-secondary">Git</span>
+        </div>
+
+        <p class="cita mt-3">"El aprendizaje nunca agota la mente." — Leonardo da Vinci</p>
+      </section>
+
+      <!-- TECNOLOGÍAS -->
+      <section id="tecnologias">
+        <h2>Tecnologías <span class="badge-caja">padding · border-bottom</span></h2>
+        <div class="lista-tecnologias">
+          <ul>
+            <li><span>HTML</span> Estructura y semántica de páginas web</li>
+            <li><span>CSS</span> Estilos, colores, fuentes y diseño visual</li>
+            <li><span>JS</span> Interactividad y comportamiento dinámico</li>
+            <li><span>Git</span> Control de versiones y trabajo colaborativo</li>
+            <li><span>VS Code</span> Editor de código profesional</li>
+          </ul>
+        </div>
+
+        <!-- ══════════════════════════════════════
+             COMPONENTE BOOTSTRAP 4: PROGRESS BARS
+             Nivel de dominio de cada tecnología
+        ══════════════════════════════════════ -->
+        <h3 style="font-size:1rem; color:var(--verde); margin: 1.2rem 0 .8rem; font-family:'Trebuchet MS',sans-serif;">Nivel de dominio</h3>
+        <div class="mb-2">
+          <div class="d-flex justify-content-between mb-1"><small><strong>HTML</strong></small><small>85%</small></div>
+          <div class="progress" style="height:14px;"><div class="progress-bar bg-verde progress-bar-striped" style="width:85%"></div></div>
+        </div>
+        <div class="mb-2">
+          <div class="d-flex justify-content-between mb-1"><small><strong>CSS</strong></small><small>75%</small></div>
+          <div class="progress" style="height:14px;"><div class="progress-bar progress-bar-striped" style="width:75%; background:#1565c0;"></div></div>
+        </div>
+        <div class="mb-2">
+          <div class="d-flex justify-content-between mb-1"><small><strong>Bootstrap</strong></small><small>65%</small></div>
+          <div class="progress" style="height:14px;"><div class="progress-bar bg-acento progress-bar-striped" style="width:65%"></div></div>
+        </div>
+        <div>
+          <div class="d-flex justify-content-between mb-1"><small><strong>JavaScript</strong></small><small>50%</small></div>
+          <div class="progress" style="height:14px;"><div class="progress-bar progress-bar-striped bg-warning" style="width:50%"></div></div>
+        </div>
+      </section>
+
+      <!-- PROYECTOS -->
+      <section id="proyectos">
+        <h2>Mis proyectos <span class="badge-caja">margin · padding · border</span></h2>
+
+        <!-- ══════════════════════════════════════
+             COMPONENTE BOOTSTRAP 5: ACCORDION
+             Reemplaza las .tarjeta de proyectos
+        ══════════════════════════════════════ -->
+        <div class="accordion mb-3" id="accordionProyectos">
+          <div class="accordion-item border" style="border-color: #ddd !important;">
+            <h2 class="accordion-header">
+              <button class="accordion-button fw-bold" style="color:var(--verde); background:#f9fbe7;" type="button" data-bs-toggle="collapse" data-bs-target="#proy1">
+                🗂 Portafolio personal
+              </button>
+            </h2>
+            <div id="proy1" class="accordion-collapse collapse show" data-bs-parent="#accordionProyectos">
+              <div class="accordion-body">
+                Página web que muestra mis trabajos y habilidades como desarrollador. Incluye secciones de inicio, sobre mí, tecnologías y contacto.
+                <br><span class="badge mt-2" style="background:var(--verde);">HTML</span>
+                <span class="badge mt-2" style="background:#1565c0;">CSS</span>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border" style="border-color: #ddd !important;">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed fw-bold" style="color:var(--verde);" type="button" data-bs-toggle="collapse" data-bs-target="#proy2">
+                📝 Blog de aprendizaje
+              </button>
+            </h2>
+            <div id="proy2" class="accordion-collapse collapse" data-bs-parent="#accordionProyectos">
+              <div class="accordion-body">
+                Espacio donde documento todo lo que aprendo cada semana del curso. Semana 6: integración de Bootstrap con componentes interactivos.
+                <br><span class="badge mt-2" style="background:var(--acento);">Bootstrap</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="galeria">
+          <div class="item">🎨 <p>Diseño UI</p></div>
+          <div class="item">💻 <p>Código</p></div>
+          <div class="item">📱 <p>Responsive</p></div>
+          <div class="item">🚀 <p>Deploy</p></div>
+        </div>
+      </section>
+
+      <!-- CONTACTO -->
+      <section id="contacto">
+        <h2>Contacto</h2>
+        <div class="tarjeta">
+          <p>¿Quieres saber más sobre mi trabajo? Escríbeme a
+            <a href="mailto:estudiante@correo.com" style="color:var(--verde);">estudiante@correo.com</a>
+          </p>
+        </div>
+
+        <!-- ══════════════════════════════════════
+             COMPONENTE BOOTSTRAP 6: MODAL
+             Botón que abre formulario de contacto
+        ══════════════════════════════════════ -->
+        <button class="btn fw-bold mt-2" style="background:var(--verde); color:#fff;" data-bs-toggle="modal" data-bs-target="#modalContacto">
+          <i class="bi bi-envelope-fill me-2"></i>Enviarme un mensaje
+        </button>
+
+        <!-- ══════════════════════════════════════
+             COMPONENTE BOOTSTRAP 7: TOAST
+             Notificación de confirmación
+        ══════════════════════════════════════ -->
+        <button class="btn btn-outline-secondary mt-2 ms-2" onclick="mostrarToast()">
+          <i class="bi bi-bell me-1"></i>Probar notificación
+        </button>
+      </section>
+
+    </main>
+
+    <!-- ASIDE (igual que semana 5, + nueva card de Bootstrap) -->
+    <aside>
+
+      <div class="aside-card">
+        <h3>📦 Modelo de Caja CSS</h3>
+        <ul>
+          <li><span class="aside-badge">content</span> Área de contenido</li>
+          <li><span class="aside-badge">padding</span> Relleno interior</li>
+          <li><span class="aside-badge">border</span> Borde de la caja</li>
+          <li><span class="aside-badge">margin</span> Espacio exterior</li>
+        </ul>
+      </div>
+
+      <div class="aside-card">
+        <h3>📍 Posición CSS</h3>
+        <ul>
+          <li><span class="aside-badge">static</span> Por defecto</li>
+          <li><span class="aside-badge">relative</span> Relativa al flujo</li>
+          <li><span class="aside-badge">absolute</span> Relativa al padre</li>
+          <li><span class="aside-badge">fixed</span> Fija en pantalla</li>
+          <li><span class="aside-badge">sticky</span> Nav de esta página</li>
+        </ul>
+      </div>
+
+      <div class="aside-card">
+        <h3>🗓 Avances del proyecto</h3>
+        <ul>
+          <li>✅ Semana 1 – Estructura HTML</li>
+          <li>✅ Semana 2 – Estilos básicos</li>
+          <li>✅ Semana 3 – Selectores CSS</li>
+          <li>✅ Semana 4 – Pseudo-clases</li>
+          <li>✅ Semana 5 – Modelo de caja</li>
+          <li>✅ <strong>Semana 6 – Bootstrap</strong></li>
+        </ul>
+      </div>
+
+      <!-- ══════════════════════════════════════
+           COMPONENTE BOOTSTRAP 8: LIST GROUP
+           Componentes Bootstrap usados
+      ══════════════════════════════════════ -->
+      <div class="aside-card">
+        <h3>⚡ Bootstrap en esta página</h3>
+        <ul class="list-group list-group-flush" style="font-size:.85rem;">
+          <li class="list-group-item px-0 py-1">✦ Navbar responsive</li>
+          <li class="list-group-item px-0 py-1">✦ Alert dismissible</li>
+          <li class="list-group-item px-0 py-1">✦ Badges / Pills</li>
+          <li class="list-group-item px-0 py-1">✦ Progress Bars</li>
+          <li class="list-group-item px-0 py-1">✦ Accordion</li>
+          <li class="list-group-item px-0 py-1">✦ Modal</li>
+          <li class="list-group-item px-0 py-1">✦ Toast</li>
+          <li class="list-group-item px-0 py-1">✦ List Group</li>
+        </ul>
+      </div>
+
+    </aside>
+
+  </div><!-- /.wrapper -->
+
+  <!-- FOOTER (igual que semana 5) -->
+  <footer>
+    <p>© 2026 Mi Página Web · Hecho con HTML, CSS y
+      <strong>Bootstrap 5</strong> <i class="bi bi-bootstrap-fill"></i>
+    </p>
+    <small>Taller Semana 6 — Frameworks y Librerías · Skolmi Grado 10</small>
+  </footer>
+
+  <!-- ══ MODAL DE CONTACTO ══ -->
+  <div class="modal fade" id="modalContacto" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header text-white" style="background:var(--verde);">
+          <h5 class="modal-title"><i class="bi bi-envelope me-2"></i>Enviarme un mensaje</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Tu nombre</label>
+            <input type="text" class="form-control" placeholder="Nombre completo"/>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Correo electrónico</label>
+            <input type="email" class="form-control" placeholder="correo@ejemplo.com"/>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Mensaje</label>
+            <textarea class="form-control" rows="3" placeholder="Escribe aquí..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn text-white fw-bold" style="background:var(--verde);" data-bs-dismiss="modal" onclick="mostrarToast()">
+            <i class="bi bi-send me-1"></i>Enviar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TOAST DE CONFIRMACIÓN ══ -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="miToast" class="toast align-items-center text-white border-0" style="background:var(--verde);" role="alert">
+      <div class="d-flex">
+        <div class="toast-body fw-semibold">
+          <i class="bi bi-check-circle-fill me-2"></i>¡Mensaje enviado con éxito!
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function mostrarToast() {
+      const toast = new bootstrap.Toast(document.getElementById('miToast'));
+      toast.show();
+    }
+  </script>
+
+</body>
+</html>
